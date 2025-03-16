@@ -7,7 +7,7 @@ API_HASH = 'YOUR API HASH FROM my.telegram.org'
 client = TelegramClient("userbot_session", API_ID, API_HASH)
 
 user_messages = {}
-last_seen_time = time.time()  # So‘nggi online bo‘lgan vaqt
+last_seen_time = time.time()
 
 async def update_last_seen():
     """ Foydalanuvchi so‘nggi online bo‘lgan vaqtini yangilaydi """
@@ -17,8 +17,7 @@ async def update_last_seen():
     if hasattr(user.status, 'was_online'):
         last_seen_time = user.status.was_online.timestamp()
     else:
-        last_seen_time = time.time()  # Agar status bo‘lmasa, hozirgi vaqtni saqlaymiz
-
+        last_seen_time = time.time() 
 async def is_user_offline_for_5_minutes():
     """ Agar foydalanuvchi **5 daqiqadan ko‘p offline bo‘lsa**, True qaytaradi """
     global last_seen_time
@@ -31,18 +30,15 @@ async def auto_reply(event):
         chat_id = event.chat_id
         current_time = time.time()
 
-        if await is_user_offline_for_5_minutes():  # **Faqat 5 daqiqa offline bo‘lsa javob beradi**
+        if await is_user_offline_for_5_minutes(): 
             if chat_id not in user_messages:
                 user_messages[chat_id] = []
 
-            # 1 daqiqa ichidagi xabarlarni filtrlaymiz
             user_messages[chat_id] = [t for t in user_messages[chat_id] if current_time - t < 60]
             message_count = len(user_messages[chat_id])
 
-            # Yangi xabar vaqtini saqlash
             user_messages[chat_id].append(current_time)
 
-            # Javob berish
             if message_count == 0:
                 await event.reply("Men hozir tarmoqda emasman. Iltimos, keyinroq yozing! 📵")
             elif message_count == 1:
@@ -54,7 +50,7 @@ async def monitor_status():
     """ Foydalanuvchi holatini har 1 daqiqada yangilash """
     while True:
         await update_last_seen()
-        await asyncio.sleep(60)  # 1 daqiqada bir marta tekshiramiz
+        await asyncio.sleep(60)  
 
 async def main():
     await client.start()
