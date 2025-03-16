@@ -1,2 +1,15 @@
-telethon
-asyncio
+[tool.poetry]
+name = "userbot"
+version = "0.1.0"
+description = "Telegram userbot built with Telethon"
+authors = ["Asadbek Rajabboyev <shkoga.irbuc@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+telethon = "^1.29.2"
+asyncio = "^3.4.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
