@@ -2,8 +2,8 @@ from telethon import TelegramClient, events
 import asyncio
 import time
 
-API_ID = 29224816
-API_HASH = '2c9169727c27900894036e23aa19b5ed'
+API_ID = YOUR API HASH FROM my.telegram.org
+API_HASH = 'YOUR API HASH FROM my.telegram.org'
 client = TelegramClient("userbot_session", API_ID, API_HASH)
 
 user_messages = {}
